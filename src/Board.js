@@ -28,8 +28,8 @@ import "./Board.css";
  **/
 
 function Board({
-  nrows = 7,
-  ncols = 7,
+  nrows = 3,
+  ncols = 3,
   chanceLightStartsOn
 }) {
   const [board, setBoard] = useState(createBoard());
@@ -49,20 +49,7 @@ function Board({
     return initialBoard;
   }
 
-  function hasWon() {
-    // TODO: check the board in state to determine whether the player has won.
-
-    for (let i = 0; i < board.length; i++) {
-      for (let j = 0; j < board[i].length; j++) {
-        if (board[i][j] === true) {
-          return false;
-        }
-      }
-    }
-    return true;
-  }
-
-  function flipCellsAround(coord) {
+   function flipCellsAround(coord) {
     setBoard(oldBoard => {
       const [y, x] = coord.split("-").map(Number);
 
@@ -85,10 +72,7 @@ function Board({
       flipCell(y+1,x, oldBoardCopy);
       flipCell(y,x-1, oldBoardCopy);
       flipCell(y,x+1, oldBoardCopy);
-      flipCell(y-1,x-1, oldBoardCopy);
-      flipCell(y+1,x+1, oldBoardCopy);
-      flipCell(y+1,x-1, oldBoardCopy);
-      flipCell(y-1,x+1, oldBoardCopy);
+      
 
 
       // TODO: return the copy
@@ -96,12 +80,26 @@ function Board({
     });
   }
 
+  function hasWon() {
+    // TODO: check the board in state to determine whether the player has won.
+
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board[i].length; j++) {
+        if (board[i][j] === true) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+
   // if the game is won, just show a winning msg & render nothing else
 
   // TODO
 
   let won = hasWon();
-
+  console.log(won)
   // make table board
 
   // TODO
