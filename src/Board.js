@@ -28,11 +28,12 @@ import "./Board.css";
  **/
 
 function Board({
-  nrows = 3,
-  ncols = 3,
+  nrows = 5,
+  ncols = 5,
   chanceLightStartsOn
 }) {
   const [board, setBoard] = useState(createBoard());
+  const [randomize, setRandomize] = useState(false);
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
   function createBoard() {
@@ -40,14 +41,29 @@ function Board({
     // TODO: create array-of-arrays of true/false values
     for (let i = 0; i < nrows; i++) {
       let row = [];
-      for (let k = 0; k < ncols; k++) {
-        let randomNum = Math.random();
-        randomNum < 0.5 ? row.push(true) : row.push(false);
+      for (let k = 0; k < ncols; k++) {       
+        row.push(false);
       }
       initialBoard.push(row);
     }
+
     return initialBoard;
   }
+
+  /**randomize board, start with all lights turned off and make winnable board */
+
+  if(randomize === false){
+    let rounds = 10
+    for(let i = 0; i < rounds; i++){
+      let y = Math.floor(Math.random()*nrows);
+      let x = Math.floor(Math.random()*ncols);
+      flipCellsAround(`${y-x}`);
+    }
+    
+    setRandomize(true);
+  }
+
+
 
    function flipCellsAround(coord) {
     setBoard(oldBoard => {
